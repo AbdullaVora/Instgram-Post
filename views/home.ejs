@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram Story Section</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <main class="main-flex">
+      <!-- aside start -->
+      <%- include("../partials/aside.ejs") -%>
+      <!-- aside end -->
+
+      <!-- home start -->
+      <section class="home">
+        <!-- story start -->
+        <div class="story-section">
+          <ul class="story-list story-flex">
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-34-15-41_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-34-36-42_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-33-42-12_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-32-49-65_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-32-27-00_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-32-04-00_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <li class="story-item">
+              <img
+                src="../uploads/Screenshot_2024-06-27-08-31-07-96_680d03679600f7af0b4c700c6b270fe7.png"
+                class="story"
+                alt="Story 1"
+              />
+            </li>
+            <!-- Add more story items here -->
+          </ul>
+        </div>
+        <!-- story end -->
+
+        <!-- post-area start -->
+        <div class="post-area">
+          <div class="post-body">
+            <div class="header story-flex">
+              <div class="post-logo" style="border-radius: 50%">
+                <img
+                  src="<%= userfind.image %>"
+                  alt="post-logo"
+                  style="border-radius: 50%"
+                />
+              </div>
+              <div class="post-profile">
+                <span class="post-text"><%= userfind.username %></span>
+                <span class="post-text" style="opacity: 60%"> - 5d</span>
+              </div>
+            </div>
+            <% postfind.map((val) => { %>
+            <div class="post-img">
+              <img src="<%= val.image %>" alt="" />
+            </div>
+            <div class="l-c-s" style="position: relative">
+              <div class="like story-flex">
+                <img
+                  src="../uploads/heart.png"
+                  id="heart-<%= val._id %>"
+                  alt="like"
+                />
+                <img
+                  src="../uploads/favorite.png"
+                  id="redheart-<%= val._id %>"
+                  class="red"
+                  style="width: 43px; height: auto; display: none"
+                  alt="like"
+                />
+                <img
+                  src="../uploads/chat.png"
+                  alt="comment"
+                  id="commentbox"
+                  data-post-id="<%= val._id %>"
+                  class="commentbox"
+                />
+                <img src="../uploads/save-instagram.png" alt="comment" />
+              </div>
+
+              <div class="likes-count" style="margin-top: 12px">
+                <span class="post-text" id="like-count-<%= val._id %>"
+                  ><%= val.like %> likes</span
+                >
+              </div>
+
+              <div class="dsc" style="margin-top: 10px">
+                <span class="post-text" style="font-size: 20px"
+                  ><%= val.title %></span
+                >
+                <p class="post-text"><%= val.content %></p>
+              </div>
+
+              <div class="comments-count" style="margin-top: 5px">
+                <span class="post-text" style="opacity: 70%"
+                  >Comment: <%= val.comment %></span
+                >
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+        <!-- post-area end -->
+      </section>
+
+      <!-- home end -->
+
+      <!-- profile start -->
+      <%- include("../partials/profile.ejs") -%>
+      <!-- profile end -->
+    </main>
+    <!-- comment modal start -->
+    <section class="commentarea" id="commentarea" style="pointer-events: all">
+      <div class="c-modal" id="c-modal">
+        <div class="c-img">
+          <img src="../uploads/4k-nature-ztbad1qj8vdjqe0p.jpg" alt="c-img" />
+        </div>
+        <div class="c" style="width: calc(50% - 30px); margin: 15px 10px">
+          <div class="post-logo" style="display: flex; align-items: center">
+            <img src="<%= userfind.image %>" alt="post-logo" />
+            <span class="post-text" style="margin-left: 15px; font-size: 18px"
+              ><%= userfind.username %></span
+            >
+          </div>
+          <form action="/comment" method="post">
+            <input type="hidden" name="id" value="" id="postId" />
+            <textarea
+              name="comment"
+              class="comment"
+              cols="38"
+              rows="20"
+              id=""
+              placeholder="Comments & Hashtags"
+            ></textarea>
+            <button
+              type="submit"
+              class="login-button"
+              style="width: 100%; margin-top: 8px"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <span
+          class="close"
+          id="close"
+          style="color: white; cursor: pointer; font-size: 40px; top: 10px"
+          >&times;</span
+        >
+      </div>
+    </section>
+    <!-- comment modal end -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('[id^="heart-"]').forEach((heart) => {
+          heart.onclick = () => {
+            const postId = heart.id.split("-")[1];
+            const redheart = document.getElementById(`redheart-${postId}`);
+            heart.style.display = "none";
+            redheart.style.position = "relative";
+            redheart.style.display = "block";
+            likeAdd(postId);
+          };
+        });
+
+        const likeAdd = async (postId) => {
+          try {
+            const response = await fetch("/like", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ postId }),
+            });
+            const result = await response.json();
+            console.log(result);
+          } catch (error) {
+            console.error(error);
+          }
+          window.location.reload();
+        };
+
+        let c_modal = document.getElementById("commentarea");
+        let close = document.getElementById("close");
+
+        document.querySelectorAll(".commentbox").forEach((commentbox) => {
+          commentbox.onclick = () => {
+            alert("hi");
+            const postId = commentbox.getAttribute("data-post-id");
+            document.getElementById("postId").value = postId;
+            c_modal.style.display = "block";
+            document.querySelector("main").classList.add("blur");
+            document.querySelector("main").classList.add("pointer-none");
+            document.body.style.overflow = "hidden";
+          };
+        });
+
+        close.onclick = () => {
+          c_modal.style.display = "none";
+          document.querySelector("main").classList.remove("blur");
+          document.querySelector("main").classList.remove("pointer-none");
+          document.querySelector("main").classList.remove("hidden");
+          document.body.style.overflow = "visible";
+        };
+
+        const commentForm = document.getElementById("commentForm");
+
+        if (commentForm) {
+          commentForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const formData = new FormData(commentForm);
+            const postId = formData.get("postId");
+            const commentText = formData.get("comment");
+
+            try {
+              const response = await fetch("/comment", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ postId, comment: commentText }),
+              });
+              const result = await response.json();
+              console.log(result); 
+            } catch (error) {
+              console.error(error);
+            }
+
+            window.location.reload(); 
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

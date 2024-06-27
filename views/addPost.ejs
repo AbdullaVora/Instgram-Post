@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body style="overflow-y: hidden">
+    <main
+      class="main-flex"
+      style="height: 100vh; overflow-y: hidden; pointer-events: none"
+    >
+      <div class="create-post">
+        <!-- Other content -->
+        <%- include("../partials/aside.ejs") -%>
+        <main class="main-flex">
+          <!-- aside start -->
+          <%- include("../partials/aside.ejs") -%>
+          <!-- aside end -->
+
+          <!-- home start -->
+          <section class="home">
+            <!-- story start -->
+            <div class="story-section">
+              <ul class="story-list story-flex">
+                <li class="story-item">
+                  <img
+                    src="../uploads/download-removebg-preview (1).png"
+                    class="story"
+                    alt="Story 1"
+                  />
+                </li>
+                <!-- Add more story items here -->
+              </ul>
+            </div>
+            <!-- story end -->
+
+            <!-- post-area start -->
+            <div class="post-area">
+              <div class="post-body">
+                <div class="header story-flex">
+                  <div class="post-logo">
+                    <img src="<%= userfind.image %>" alt="post-logo" />
+                  </div>
+                  <div class="post-profile">
+                    <span class="post-text"><%= userfind.username %></span>
+                    <span class="post-text" style="opacity: 60%"> - 5d</span>
+                  </div>
+                </div>
+                <% postfind.map((val) => { %>
+                <div class="post-img">
+                  <img src="<%= val.image %>" alt="" />
+                </div>
+                <div class="l-c-s" style="position: relative">
+                  <div class="like story-flex">
+                    <img
+                      src="../uploads/heart.png"
+                      id="heart-<%= val._id %>"
+                      alt="like"
+                    />
+                    <img
+                      src="../uploads/favorite.png"
+                      id="redheart-<%= val._id %>"
+                      class="red"
+                      style="width: 43px; height: auto; display: none"
+                      alt="like"
+                    />
+                    <img src="../uploads/chat.png" alt="comment" />
+                    <img src="../uploads/chat.png" alt="comment" />
+                  </div>
+
+                  <div class="likes-count" style="margin-top: 12px">
+                    <span class="post-text" id="like-count-<%= val._id %>"
+                      ><%= val.like %> likes</span
+                    >
+                  </div>
+
+                  <div class="dsc" style="margin-top: 10px">
+                    <span class="post-text" style="font-size: 20px"
+                      ><%= val.title %></span
+                    >
+                    <p class="post-text"><%= val.content %></p>
+                  </div>
+
+                  <div class="comments-count" style="margin-top: 5px">
+                    <span class="post-text" style="opacity: 70%"
+                      >View all 300 Comments</span
+                    >
+                  </div>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+            <!-- post-area end -->
+          </section>
+          <!-- home end -->
+
+          <!-- modal start -->
+
+          <!-- modal end -->
+
+          <!-- profile start -->
+          <%- include("../partials/profile.ejs") -%>
+          <!-- profile end -->
+        </main>
+        <%- include("../partials/profile.ejs") -%>
+      </div>
+      <div class="box" id="box" style="pointer-events: all">
+        <img src="../uploads/image-gallery.png" width="120px" alt="" />
+        <button id="createPostBtn" class="create-post-button">
+          Create Post
+        </button>
+        <a href="/"
+          ><h4
+            class="close"
+            style="color: white; cursor: pointer; font-size: 40px"
+          >
+            &times;
+          </h4></a
+        >
+      </div>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="postModal" class="modal login-body">
+      <div class="login-logo">
+        <img src="../uploads/logo.png" alt="" />
+      </div>
+      <span
+        class="close"
+        id="close"
+        style="color: white; cursor: pointer; font-size: 40px"
+        >&times;</span
+      >
+      <form
+        id="postForm"
+        action="/createPost"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          required
+          class="login-input margin-t"
+        />
+        <textarea
+          name="content"
+          placeholder="Content"
+          required
+          class="login-input"
+        ></textarea>
+        <input type="file" name="image" id="postImage" class="login-input" />
+        <button type="submit" class="login-button">Create Post</button>
+      </form>
+    </div>
+
+    <script>
+      var modal = document.getElementById("postModal");
+
+      var btn = document.getElementById("createPostBtn");
+
+      var close = document.getElementById("close");
+
+      btn.onclick = function () {
+        modal.style.display = "block";
+        box.style.display = "none";
+
+        document.body.style.overflow = "hidden";
+      };
+
+      close.onclick = function () {
+        modal.style.display = "none";
+        box.style.display = "block";
+        document.querySelector("main").classList.remove("blur");
+        document.body.style.overflow = "auto";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+          document.querySelector("main").classList.remove("blur");
+          document.body.style.overflow = "auto";
+        }
+      };
+    </script>
+  </body>
+</html>

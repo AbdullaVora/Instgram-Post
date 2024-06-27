@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="profile">
+      <div class="position-fixed">
+        <div class="pf-bg">
+          <div class="profile-head story-flex">
+            <div class="profile-img">
+              <img src="<%= userfind.image %>" alt="" />
+            </div>
+            <div
+              class="p-f story-flex"
+              style="margin: 0 8px; justify-content: space-between"
+            >
+              <div class="post-count">
+                <span class="post-text" style="font-size: 20px; margin: 0 19px"
+                  >3 <br />Posts</span
+                >
+              </div>
+              <div class="followers">
+                <span class="post-text" style="font-size: 20px; margin: 0 19px"
+                  >500 <br />
+                  followers</span
+                >
+              </div>
+              <div class="following">
+                <span class="post-text" style="font-size: 20px; margin: 0 19px"
+                  >100 <br />
+                  Following</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="user-name">
+            <span class="post-text" style="font-size: 22px"
+              ><%= userfind.username %></span
+            >
+          </div>
+          <div class="bio" style="margin-top: 8px">
+            <p class="post-text">
+              🌟 Full Stack Developer | Crafting seamless web experiences |
+              Skilled in JavaScript, React, Node.js, and Python | Passionate
+              about UI/UX design and clean code | Turning ideas into reality,
+              one line at a time 🚀 #WebDevelopment #TechEnthusiast
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="profile-post">
+        <div class="profile-cards">
+          <% postfind.map((val) => {%>
+          <div class="card" style="border-radius: 20px">
+            <img src="<%= val.image %>" alt="" style="border-radius: 20px" />
+          </div>
+          <%})%>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
